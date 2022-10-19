@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/dist/src/app.js",
-    "heroku-postbuild": "cd backend;npm install && npm run compile;cd ..;cd client;npm install && npm run build"
+    "heroku-postbuild": "cd backend;npm install typescript;npm install && npm run compile;cd ..;cd client;npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -17,8 +17,5 @@
   "bugs": {
     "url": "https://github.com/OgenrwotAaron/lenda/issues"
   },
-  "homepage": "https://github.com/OgenrwotAaron/lenda#readme",
-  "devDependencies": {
-    "typescipt": "^1.0.0"
-  }
+  "homepage": "https://github.com/OgenrwotAaron/lenda#readme"
 }
