@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "description": "Lenda App BAckend",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx eslint .",
+    "clean": "rm -rf ./dist",
+    "compile": "tsc --project tsconfig.json",
+    "compile:watch": "npm run compile -- --watch",
+    "start": "node  --inspect=5858 --trace-warnings --require source-map-support/register ./dist/src/app",
+    "start:watch": "nodemon -d 5 -w dist -x 'npm run start'",
+    "dev": "concurrently -n \"watch,api\" \"npm run compile:watch\" \"npm run start:watch\""
+  },
+  "author": "Aaron Ogenrwot",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "concurrently": "^7.4.0",
+    "nodemon": "^2.0.20",
+    "source-map-support": "^0.5.21"
+  }
+}
