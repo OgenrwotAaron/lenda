@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/OgenrwotAaron/lenda/issues"
   },
-  "homepage": "https://github.com/OgenrwotAaron/lenda#readme"
+  "homepage": "https://github.com/OgenrwotAaron/lenda#readme",
+  "devDependencies": {
+    "typescipt": "^1.0.0"
+  }
 }
