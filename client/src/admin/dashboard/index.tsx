@@ -37,7 +37,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       <Header title="DASHBOARD" subtitle="Welcome to Lenda Dashboard" />
       <Grid container spacing={4}>
         {stats.map((stat, i) => (
-          <Grid key={i} item xs={12} md={3}>
+          <Grid key={i} item xs={6} md={3}>
             <StatCard {...stat} />
           </Grid>
         ))}
