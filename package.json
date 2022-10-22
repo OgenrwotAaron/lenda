@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/OgenrwotAaron/lenda/issues"
   },
-  "homepage": "https://github.com/OgenrwotAaron/lenda#readme"
+  "homepage": "https://github.com/OgenrwotAaron/lenda#readme",
+  "dependencies": {
+    "@types/react-swipeable-views": "^0.13.1",
+    "@types/react-swipeable-views-utils": "^0.13.4"
+  }
 }
