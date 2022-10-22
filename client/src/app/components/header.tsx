@@ -17,6 +17,7 @@ const Header: React.FC<HeaderProps> = ({
   avatar = false
 }) => {
   const navigate = useNavigate();
+
   return (
     <Box display="grid" gridTemplateColumns={`repeat(20,1fr)`}>
       {back && (
@@ -38,15 +39,17 @@ const Header: React.FC<HeaderProps> = ({
       </Box>
       {avatar && (
         <Box gridColumn="span 3">
-          <Avatar
-            sx={{
-              backgroundColor: "white",
-              color: "black",
-              border: "2px solid #03a9f0"
-            }}
-          >
-            JD
-          </Avatar>
+          <IconButton onClick={() => navigate("/profile")} aria-haspopup="true">
+            <Avatar
+              sx={{
+                backgroundColor: "white",
+                color: "black",
+                border: "2px solid #03a9f0"
+              }}
+            >
+              JD
+            </Avatar>
+          </IconButton>
         </Box>
       )}
     </Box>

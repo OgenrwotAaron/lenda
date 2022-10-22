@@ -17,7 +17,7 @@ const Scaffold: React.FC<ScaffoldProps & PropsWithChildren> = ({
   height = "50%"
 }) => {
   return (
-    <Box p={3} height={height} borderRadius={5} sx={{ background: "white" }}>
+    <Box p={3} height={height} borderRadius={5} sx={{ background: "#f2f2ff" }}>
       <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" gap={2}>
         <Box gridColumn="span 2" alignSelf="flex-end">
           <Typography color="textSecondary">{title}</Typography>

@@ -5,7 +5,7 @@ import {
   ThemeProvider
 } from "@mui/material";
 import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import { defaultTheme } from "./theme";
@@ -16,11 +16,13 @@ import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 
 interface LayoutProps {}
 
-const routes: string[] = ["/requests", "/", "/profile"];
+const routes: string[] = ["/requests", "/home", "/profile"];
 
 const Layout: React.FC<LayoutProps> = () => {
   const [value, setValue] = useState(1);
+
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -32,38 +34,40 @@ const Layout: React.FC<LayoutProps> = () => {
       >
         <Outlet />
       </div>
-      <Paper
-        elevation={0}
-        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-      >
-        <BottomNavigation
-          showLabels
-          value={value}
-          onChange={(_event, val) => {
-            setValue(val);
-            navigate(routes[val]);
-          }}
+      {!["/login", "/sign-up", "/"].includes(pathname) && (
+        <Paper
+          elevation={0}
+          sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
         >
-          <BottomNavigationAction
-            label="Loans"
-            icon={
-              value === 0 ? (
-                <HomeRepairServiceIcon />
-              ) : (
-                <HomeRepairServiceOutlinedIcon />
-              )
-            }
-          />
-          <BottomNavigationAction
-            label="Home"
-            icon={value === 1 ? <HomeIcon /> : <HomeOutlinedIcon />}
-          />
-          <BottomNavigationAction
-            label="Profile"
-            icon={value === 2 ? <PersonIcon /> : <PermIdentityOutlinedIcon />}
-          />
-        </BottomNavigation>
-      </Paper>
+          <BottomNavigation
+            showLabels
+            value={value}
+            onChange={(_event, val) => {
+              setValue(val);
+              navigate(routes[val]);
+            }}
+          >
+            <BottomNavigationAction
+              label="Loans"
+              icon={
+                value === 0 ? (
+                  <HomeRepairServiceIcon />
+                ) : (
+                  <HomeRepairServiceOutlinedIcon />
+                )
+              }
+            />
+            <BottomNavigationAction
+              label="Home"
+              icon={value === 1 ? <HomeIcon /> : <HomeOutlinedIcon />}
+            />
+            <BottomNavigationAction
+              label="Profile"
+              icon={value === 2 ? <PersonIcon /> : <PermIdentityOutlinedIcon />}
+            />
+          </BottomNavigation>
+        </Paper>
+      )}
     </ThemeProvider>
   );
 };
