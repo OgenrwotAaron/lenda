@@ -28,5 +28,40 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./serviceWorker.js")
+            .then(reg => {
+              console.log("Worker Registered");
+            })
+            .catch(err => {
+              console.log("Error in service worker registration.");
+            });
+        });
+      }
+      let deferredPromt;
+      let btnAdd = document.createElement("button");
+      btnAdd.style.display = "hidden";
+      window.addEventListener("beforeinstallprompt", event => {
+        event.preventDefault();
+        deferredPromt = event;
+        btnAdd.style.display = "block";
+      });
+      btnAdd.addEventListener("click", event => {
+        deferredPromt.prompt();
+        deferredPromt.userChoice.then(choiceResult => {
+          if (choiceResult.outcome === "accepted") {
+            console.log("User Accepted the A2HS prompt");
+          }
+          deferredPromt = null;
+        });
+      });
+      //analytics
+      window.addEventListener("appinstalled", event => {
+        console.log("PWA installed");
+      });
+    </script>
   </body>
 </html>
