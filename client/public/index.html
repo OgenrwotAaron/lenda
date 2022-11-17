@@ -21,13 +21,85 @@
     <style>
       body {
         margin: 0;
+        font-family: "Inter", sans-serif;
+      }
+      #prompt {
+        position: fixed;
+        background-color: white;
+        bottom: 0;
+        padding: 10px;
+        font-weight: 500;
+        display: none;
+      }
+
+      .info {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .logo {
+        width: 60px;
+        height: 60px;
+        padding: 10px;
+      }
+
+      .details {
+        padding: 0 10px;
+        font-size: 14px;
+      }
+      .details h2 {
+        margin: 0;
+        font-size: 18px;
+      }
+      .caption {
+        color: lightslategrey;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: space-evenly;
+      }
+
+      .buttons button {
+        width: 45%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .success {
+        background-color: #0075db;
+        color: white;
       }
     </style>
+
     <title>Lenda</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <div id="prompt">
+      <div class="info">
+        <img class="logo" src="%PUBLIC_URL%/logo192.png" />
+        <div class="details">
+          <h2>Install Lenda App</h2>
+          <p class="caption">Publisher: Lenda.io</p>
+          <p class="body">
+            This site can be installed as an apllication. It will open in it's
+            own window and safely integrate with your device's features
+          </p>
+        </div>
+      </div>
+      <div class="buttons">
+        <button class="cancel" id="cancel-button">Not Now</button>
+        <button class="success" id="install-button">Install</button>
+      </div>
+    </div>
+
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
@@ -41,26 +113,34 @@
             });
         });
       }
-      let deferredPromt;
-      let btnAdd = document.createElement("button");
-      btnAdd.style.display = "hidden";
-      window.addEventListener("beforeinstallprompt", event => {
-        event.preventDefault();
-        deferredPromt = event;
-        btnAdd.style.display = "block";
+      let deferredPrompt;
+      const prompt = document.getElementById("prompt");
+      window.addEventListener("beforeinstallprompt", e => {
+        e.preventDefault();
+
+        deferredPrompt = e;
+        prompt.style.display = "block";
       });
-      btnAdd.addEventListener("click", event => {
-        deferredPromt.prompt();
-        deferredPromt.userChoice.then(choiceResult => {
-          if (choiceResult.outcome === "accepted") {
-            console.log("User Accepted the A2HS prompt");
-          }
-          deferredPromt = null;
-        });
+
+      const installButton = document.getElementById("install-button");
+      const cancelButton = document.getElementById("cancel-button");
+
+      installButton.addEventListener("click", async () => {
+        deferredPrompt.prompt();
+
+        const { outcome } = await deferredPrompt.userChoice;
+
+        deferredPrompt = null;
+
+        if (outcome === "accepted") {
+          console.log("User accepted the install prompt.");
+        } else if (outcome === "dismissed") {
+          console.log("User dismissed the install prompt");
+        }
       });
-      //analytics
-      window.addEventListener("appinstalled", event => {
-        console.log("PWA installed");
+
+      cancelButton.addEventListener("click", async () => {
+        prompt.style.display = "none";
       });
     </script>
   </body>
